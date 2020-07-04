@@ -1,0 +1,18 @@
+FROM openjdk:latest
+
+RUN yum -y  update
+RUN yum  install -y  postgresql-devel
+ 
+ENV PG_HOST=
+ENV PG_PORT=5432
+ENV PG_DB=image-gallery
+
+RUN mkdir /docker
+COPY . /docker
+COPY docker/creatDB.sql /docker-entrypoint-initdb.d/  
+
+CMD [ "java", "-jar", "java-image-gallery-all.jar"] 
+
+
+
+
